@@ -28,8 +28,14 @@ class HMTorchDataset(Dataset):
         self.raw_data = []
         for split in self.splits:
             path = os.path.join("data/", f"{split}.jsonl")
+            tmp = []
+            for jline in open(path, "r").read().split('\n'):
+                if jline.strip() == '': continue
+                d = json.loads(jline)
+                d['id'] = int(d['id'])
+                tmp.append(d)
             self.raw_data.extend(
-                    [json.loads(jline) for jline in open(path, "r").read().split('\n')]
+                    tmp
             )
         print("Load %d data from split(s) %s." % (len(self.raw_data), self.name))
 
