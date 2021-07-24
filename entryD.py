@@ -91,8 +91,8 @@ class ModelD(nn.Module):
 
         if args.from_scratch:
             print("initializing all the weights")
-            # self.model.apply(self.model.init_weights)
-            self.model.init_weights()
+            self.model.apply(self.init_weights)
+            # self.model.init_weights()
         
     @property
     def dim(self):
